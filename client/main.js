@@ -4,21 +4,38 @@ import { QUESTIONS } from '../lib/qb.js';
 import { Mongo } from 'meteor/mongo';
 import './main.html';
 
+//--------------- Template Helpers ---------------
 Template.FORMS.helpers({ques: QUESTIONS.find({})});
+//=================================================
 
+//--------------- Template Listeners -------------
 Template.FORMS.events({
 	'submit .infos'(e)
 	{
 		e.preventDefault();
+
+		//Putting all submitted answers in an array
 		var P = $(".infos").serializeArray();
 		
+		//Iterating through submitted answers
 		for(var i = 0; i<P.length; i++)
 		{
-			console.log(P[i].value);
+			
+			var Q = QUESTIONS.findOne({_id:P[i].name});	//Grabbing Question set from db
+
+			//Comparing Submitted answers with db Question set
+			if(P[i].value == Q.ans)	
+				console.log("Right answer");
+			else
+				console.log("Sorry, Wrong answer");
+
 		}
+		
 
 	},
 });
+//============== End of Template Listeners =========
+
 //------------------------------------------------------
 //Example code provided by default.
 //Good example of Reactive variable!!!
