@@ -4,7 +4,19 @@
 
 <body>
   <h1>Welcome to Meteor!</h1>
+  {{> FORMS}}
 </body>
+
+<template name = "FORMS">
+
+  <form class="infos">
+    <label>Name: <input type="text" name="Name"></label> <br><br>
+    <label>Roll: <input type="text" name="Roll"></label> <br><br>
+    <label>Department: <input type="text" name="Department"></label> <br><br>
+    <button value="submit">Submit</button>
+  </form>
+  
+</template>
 
  <!-- Came with example (inside body)-->
   <!-- {{> hello}}

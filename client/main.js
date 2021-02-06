@@ -3,6 +3,19 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
+Template.FORMS.events({
+	'submit .infos'(e)
+	{
+		e.preventDefault();
+		var P = $(".infos").serializeArray();
+		
+		for(var i = 0; i<P.length; i++)
+		{
+			console.log(P[i].value);
+		}
+
+	},
+});
 //------------------------------------------------------
 //Example code provided by default.
 //Good example of Reactive variable!!!
