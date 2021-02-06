@@ -8,14 +8,27 @@
 </body>
 
 <template name = "FORMS">
-
+<!-- 
   <form class="infos">
     <label>Name: <input type="text" name="Name"></label> <br><br>
     <label>Roll: <input type="text" name="Roll"></label> <br><br>
     <label>Department: <input type="text" name="Department"></label> <br><br>
     <button value="submit">Submit</button>
   </form>
-  
+   -->
+    <form class="infos">
+      {{#each ques}}
+      <label>{{question}} <br><br>
+        <label><input type="radio" name="{{_id}}" value="{{opt1}}">{{opt1}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt2}}">{{opt2}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt3}}">{{opt3}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt4}}">{{opt4}} </label>
+
+        <label hidden><input type="radio" name="{{_id}}" value="{{ans}}">{{ans}} </label>
+      </label><br><br>
+      {{/each}}
+      <button type="submit">Submit</button>
+    </form>
 </template>
 
  <!-- Came with example (inside body)-->

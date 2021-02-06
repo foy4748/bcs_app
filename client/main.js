@@ -1,7 +1,10 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
-
+import { QUESTIONS } from '../lib/qb.js';
+import { Mongo } from 'meteor/mongo';
 import './main.html';
+
+Template.FORMS.helpers({ques: QUESTIONS.find({})});
 
 Template.FORMS.events({
 	'submit .infos'(e)
