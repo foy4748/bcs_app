@@ -6,6 +6,7 @@ export const qs = [
 				opt3: "Singapore",
 				opt4: "London",
 				ans: "Dhaka",
+				topic: "BB",
 			},
 
 			{
@@ -15,6 +16,27 @@ export const qs = [
 				opt3: "1971",
 				opt4: "1966",
 				ans: "1971",
+				topic: "BB",	
+			},
+
+			{
+				question: "What's '2 + 2' = ?",
+				opt1: "22",
+				opt2: "4",
+				opt3: "'2 + 2'",
+				opt4: "100",
+				ans: "'2 + 2'",
+				topic: "PP",	
+			},
+
+			{
+				question: "What's 2/0 = ?",
+				opt1: "Infinite",
+				opt2: "NaN",
+				opt3: "'2/0'",
+				opt4: "Zero divide Error",
+				ans: "Zero divide Error",
+				topic: "PP",
 			},
 		
 ];

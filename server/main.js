@@ -9,7 +9,7 @@ Meteor.startup(() => {
 		  // code to run on server at startup
 		  if (QUESTIONS.find().count() == 0)
 		  {
-		  		for(var i = 0; i<2; i++)
+		  		for(var i = 0; i<4; i++)
 		  		{
 	  				QUESTIONS.insert(qs[i]);
 		  		}
