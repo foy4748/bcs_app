@@ -9,21 +9,15 @@
 </body>
 
 <template name = "TOPICS">
-  <label class="topics"><input  type="checkbox" name="BB">Bangladesh</label>
-  <label class="topics"><input  type="checkbox" name="PP">Programming</label>
-
-  <br><br>
+  
 </template>
 
 <template name = "FORMS">
-<!-- 
-  <form class="infos">
-    <label>Name: <input type="text" name="Name"></label> <br><br>
-    <label>Roll: <input type="text" name="Roll"></label> <br><br>
-    <label>Department: <input type="text" name="Department"></label> <br><br>
-    <button value="submit">Submit</button>
-  </form>
-   -->
+  
+    <label class="topics"><input  type="checkbox" name="BB">Bangladesh</label>
+    <label class="topics"><input  type="checkbox" name="PP">Programming</label>
+
+      <br><br>
     <form class="infos">
       {{#each ques}}
       <label>{{question}} <br><br>

@@ -7,13 +7,34 @@ import './main.html';
 
 //--------------- Template Helpers ---------------
 
-Template.TOPICS.onCreated(function bodyOnCreated() {	
+Template.FORMS.onCreated(function bodyOnCreated() {	
   // counter starts at 0
   this.state = new ReactiveDict();	//Create State when Topic template is created
 });
 
 
-Template.FORMS.helpers({ques: QUESTIONS.find({})});
+Template.FORMS.helpers({
+	//ques: QUESTIONS.find({})
+
+	'ques'()
+	{
+		const instance = Template.instance();
+		var P = instance.state.get('topic_name');
+		var Q = instance.state.get('topic_state');
+
+		if(Q && P)
+		{
+			return QUESTIONS.find({topic:P});
+		}
+
+		else
+		{
+			return QUESTIONS.find({});
+		}
+
+	},
+
+});
 //=================================================
 
 //--------------- Template Listeners -------------
@@ -43,21 +64,17 @@ Template.FORMS.events({	//Listening to Quiz
 
 	},
 
+	'change .topics'(e, instance)	//Grabbing Topic name and State
+	{
+		var A = e.target.name;		//Grabbing Topic Name
+		var B = e.target.checked;	//Grabbing Topic State
+
+		instance.state.set('topic_name', A);	//Putting Topic Name in ReactiveDict
+		instance.state.set('topic_state', B);	//Putting Topic State in ReactiveDict
+	},
+
 });
 
-Template.TOPICS.events({	//Grabbing Topic name and State
-	'change .topics'(e, instance)
-	{
-		var A = e.target.name;
-		var B = e.target.checked;
-		instance.state.set('topic_name', A);
-		instance.state.set('topic_state', B);
-		var P = instance.state.get('topic_name');
-		var Q = instance.state.get('topic_state');
-		console.log(P);
-		console.log(Q);
-	}
-});
 //============== End of Template Listeners =========
 
 //------------------------------------------------------
