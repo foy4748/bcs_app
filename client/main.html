@@ -3,14 +3,17 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  <label><input class="topics" type="checkbox" name="BB">Bangladesh</label>
-  <label><input class="topics" type="checkbox" name="PP">Programming</label>
-
-  <br><br>
+  <h1>Welcome to BCS app!</h1>
+  {{> TOPICS}}
   {{> FORMS}}
 </body>
+
+<template name = "TOPICS">
+  <label class="topics"><input  type="checkbox" name="BB">Bangladesh</label>
+  <label class="topics"><input  type="checkbox" name="PP">Programming</label>
+
+  <br><br>
+</template>
 
 <template name = "FORMS">
 <!-- 

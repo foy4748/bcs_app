@@ -1,15 +1,24 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { ReactiveDict } from 'meteor/reactive-dict';
 import { QUESTIONS } from '../lib/qb.js';
 import { Mongo } from 'meteor/mongo';
 import './main.html';
 
 //--------------- Template Helpers ---------------
+
+Template.TOPICS.onCreated(function bodyOnCreated() {	
+  // counter starts at 0
+  this.state = new ReactiveDict();	//Create State when Topic template is created
+});
+
+
 Template.FORMS.helpers({ques: QUESTIONS.find({})});
 //=================================================
 
 //--------------- Template Listeners -------------
-Template.FORMS.events({
+
+Template.FORMS.events({	//Listening to Quiz
 	'submit .infos'(e)
 	{
 		e.preventDefault();
@@ -34,6 +43,20 @@ Template.FORMS.events({
 
 	},
 
+});
+
+Template.TOPICS.events({	//Grabbing Topic name and State
+	'change .topics'(e, instance)
+	{
+		var A = e.target.name;
+		var B = e.target.checked;
+		instance.state.set('topic_name', A);
+		instance.state.set('topic_state', B);
+		var P = instance.state.get('topic_name');
+		var Q = instance.state.get('topic_state');
+		console.log(P);
+		console.log(Q);
+	}
 });
 //============== End of Template Listeners =========
 
