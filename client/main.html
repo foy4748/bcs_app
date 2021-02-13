@@ -1,27 +1,27 @@
 <head>
-  <title>bcs</title>
+  <title>QUIZ | Home</title>
 </head>
 
 <body>
-  <h1>Welcome to BCS app!</h1>
-  {{> TOPICS}}
+  <h1>Welcome to QUIZ app!</h1>
   {{> FORMS}}
 </body>
 
-<template name = "TOPICS">
-  
-</template>
 
 <template name = "FORMS">
   
+  <!-- Rendering available topics -->
   <form class="topics">
     <label><input  type="checkbox" name="topic" value="BB">Bangladesh</label>
     <label><input  type="checkbox" name="topic" value="PP">Programming</label>
   </form>
+  <!-- End of Rendering available topics -->
       <br><br>
+
+  <!-- Rendering Quiz/Questions -->
     <form class="infos">
       {{#each ques}}
-      <label>{{question}} <br><br>
+      <label>({{@index}}) {{question}} <br><br>
         <label><input type="radio" name="{{_id}}" value="{{opt1}}">{{opt1}} </label>
         <label><input type="radio" name="{{_id}}" value="{{opt2}}">{{opt2}} </label>
         <label><input type="radio" name="{{_id}}" value="{{opt3}}">{{opt3}} </label>
@@ -31,6 +31,19 @@
       {{/each}}
       <button type="submit">Submit</button>
     </form>
+  <!-- End of Rendering Quiz/Questions -->
+
+
+    <h3>{{result}}</h3> <!-- Rendering Result after submitting answers -->
+
+    <!-- Rendering corrected answers if wrong answer was given -->
+    {{#if correct_ans}}
+    <h3> Correct answers </h3>
+    {{#each correct_ans}}
+    <p>{{correct}}</p>
+    {{/each}}
+    {{/if}}
+    <!-- End of Rendering corrected answers if wrong answer was given -->
 </template>
 
  <!-- Came with example (inside body)-->

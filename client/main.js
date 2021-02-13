@@ -14,7 +14,7 @@ Template.FORMS.onCreated(function bodyOnCreated() {
 
 
 Template.FORMS.helpers({
-	'ques'()
+	'ques'()	//Rendering Questions from database
 	{
 		const instance = Template.instance();	//Calling the Reactive Dict
 		var A = instance.state.get('topics');	//Grabbing topic from Reactive Dict
@@ -38,19 +38,58 @@ Template.FORMS.helpers({
 		}
 	},
 
+	'result'()	//Rendering result after submitting answers
+	{
+		const instance = Template.instance();		//Calling the Reactive Dict
+		var right = instance.state.get('rights');	//Number of Right answers
+		var wrong = instance.state.get('wrongs');	//Number of Wrong answers
+
+		if(right || wrong)	//If answered right or wrong
+		{
+			return " Correct: " + right + "  Wrong: " + wrong;
+		}
+	},
+
+	'correct_ans'()	//Rendering Correct answers corresponds to wrong answers
+	{
+		const instance = Template.instance();	//Calling the Reactive Dict
+
+		var P;
+		P = instance.state.get('correct_ans');	//Grabbing the Corrected answers
+
+		if(P && P.length != 0)	//If any Corrected answers for wrong answer remains
+		{
+			B = []
+			for(var i = 0; i<P.length; i++)
+				{
+					obj = {};
+					obj['correct'] = P[i];		//Making corrected answers object
+					B.push(obj);				//Pushing it into array
+
+				}
+			return B;
+		}
+	},
+
+
+
 });
 //=================================================
 
 //--------------- Template Listeners -------------
 
 Template.FORMS.events({	//Listening to Quiz
-	'submit .infos'(e)
+	'submit .infos'(e, instance)
 	{
 		e.preventDefault();
 
 		//Putting all submitted answers in an array
 		var P = $(".infos").serializeArray();
 		
+		var right = 0;
+		var wrong = 0;
+
+		correct_answer = []
 		//Iterating through submitted answers
 		for(var i = 0; i<P.length; i++)
 		{
@@ -59,13 +98,27 @@ Template.FORMS.events({	//Listening to Quiz
 
 			//Comparing Submitted answers with db Question set
 			if(P[i].value == Q.ans)	
-				console.log("Right answer");
+			{
+				right = right + 1;	//Counting Right answers
+			}
 			else
-				console.log("Sorry, Wrong answer");
+			{
+				//Correct answers to corresponding right answers
+				//along with indexing
+				correct_answer.push(" (" + i + ") " + Q.ans);
+
+				wrong = wrong + 1;	//Counting Wrong answers
+			}
+
+			//Putting counts in Reactive Dicts
+			instance.state.set('rights', right);
+			instance.state.set('wrongs', wrong);
 
 		}
 		
-
+		//Putting correct answers in Reactive Dicts
+		instance.state.set('correct_ans', correct_answer);
+		
 	},
 
 	'change .topics'(e, instance)	//Grabbing Topic name
