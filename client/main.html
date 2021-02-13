@@ -14,9 +14,10 @@
 
 <template name = "FORMS">
   
-    <label class="topics"><input  type="checkbox" name="BB">Bangladesh</label>
-    <label class="topics"><input  type="checkbox" name="PP">Programming</label>
-
+  <form class="topics">
+    <label><input  type="checkbox" name="topic" value="BB">Bangladesh</label>
+    <label><input  type="checkbox" name="topic" value="PP">Programming</label>
+  </form>
       <br><br>
     <form class="infos">
       {{#each ques}}

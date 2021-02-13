@@ -8,7 +8,7 @@ import './main.html';
 //--------------- Template Helpers ---------------
 
 Template.FORMS.onCreated(function bodyOnCreated() {	
-  // counter starts at 0
+  
   this.state = new ReactiveDict();	//Create State when Topic template is created
 });
 
@@ -19,19 +19,25 @@ Template.FORMS.helpers({
 	'ques'()
 	{
 		const instance = Template.instance();
-		var P = instance.state.get('topic_name');
-		var Q = instance.state.get('topic_state');
-
-		if(Q && P)
+		var A = instance.state.get('topics');
+		
+		if(A && A.length != 0)
 		{
-			return QUESTIONS.find({topic:P});
-		}
+			B = [];
+			
+			for(var i = 0; i<A.length; i++)
+			{
+				obj = {};
+				obj['topic'] = A[i].value;
+				B.push(obj);
 
-		else
-		{
-			return QUESTIONS.find({});
-		}
+			}
+		
+			//console.log(B);
+			return QUESTIONS.find({$or:B});
 
+		
+		}
 	},
 
 });
@@ -66,11 +72,8 @@ Template.FORMS.events({	//Listening to Quiz
 
 	'change .topics'(e, instance)	//Grabbing Topic name and State
 	{
-		var A = e.target.name;		//Grabbing Topic Name
-		var B = e.target.checked;	//Grabbing Topic State
-
-		instance.state.set('topic_name', A);	//Putting Topic Name in ReactiveDict
-		instance.state.set('topic_state', B);	//Putting Topic State in ReactiveDict
+		var A = $('.topics').serializeArray()
+		instance.state.set('topics',A);
 	},
 
 });
