@@ -14,22 +14,20 @@ Template.FORMS.onCreated(function bodyOnCreated() {
 
 
 Template.FORMS.helpers({
-	//ques: QUESTIONS.find({})
-
 	'ques'()
 	{
-		const instance = Template.instance();
-		var A = instance.state.get('topics');
+		const instance = Template.instance();	//Calling the Reactive Dict
+		var A = instance.state.get('topics');	//Grabbing topic from Reactive Dict
 		
-		if(A && A.length != 0)
+		if(A && A.length != 0)	//If user select topic(s) then...
 		{
-			B = [];
+			B = [];	
 			
 			for(var i = 0; i<A.length; i++)
 			{
 				obj = {};
-				obj['topic'] = A[i].value;
-				B.push(obj);
+				obj['topic'] = A[i].value;	//Making chosen topic(s) object
+				B.push(obj);				//Pushing it into array
 
 			}
 		
@@ -70,10 +68,10 @@ Template.FORMS.events({	//Listening to Quiz
 
 	},
 
-	'change .topics'(e, instance)	//Grabbing Topic name and State
+	'change .topics'(e, instance)	//Grabbing Topic name
 	{
-		var A = $('.topics').serializeArray()
-		instance.state.set('topics',A);
+		var A = $('.topics').serializeArray()	//Grabbing selected Topic name
+		instance.state.set('topics',A);			//Pushing it to Reactive Dict
 	},
 
 });
