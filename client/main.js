@@ -33,9 +33,9 @@ Template.FORMS.helpers({
 		
 			//console.log(B);
 			return QUESTIONS.find({$or:B});
-
-		
 		}
+		
+
 	},
 
 	'result'()	//Rendering result after submitting answers
@@ -47,6 +47,11 @@ Template.FORMS.helpers({
 		if(right || wrong)	//If answered right or wrong
 		{
 			return " Correct: " + right + "  Wrong: " + wrong;
+		}
+
+		else
+		{
+			return "Submit your answers to see result";
 		}
 	},
 
@@ -70,6 +75,7 @@ Template.FORMS.helpers({
 			return B;
 		}
 	},
+
 
 
 
@@ -118,6 +124,10 @@ Template.FORMS.events({	//Listening to Quiz
 		
 		//Putting correct answers in Reactive Dicts
 		instance.state.set('correct_ans', correct_answer);
+
+		if(P)
+		{
+		}
 		
 	},
 
@@ -125,6 +135,17 @@ Template.FORMS.events({	//Listening to Quiz
 	{
 		var A = $('.topics').serializeArray()	//Grabbing selected Topic name
 		instance.state.set('topics',A);			//Pushing it to Reactive Dict
+
+		if(A && A.length != 0)
+		{
+			$('#submitting_button').css('display','block');
+			$('#instruct').css('display','none');
+		}
+		else
+		{
+			$('#submitting_button').css('display','none');
+			$('#instruct').css('display','block');
+		}
 	},
 
 });

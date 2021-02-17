@@ -1,39 +1,51 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="height=device-height, initial-scale=1.0">
   <title>QUIZ | Home</title>
 </head>
 
 <body>
+  <div class="container">
   <h1>Welcome to QUIZ app!</h1>
   {{> FORMS}}
+  </div>
 </body>
 
 
 <template name = "FORMS">
   
   <!-- Rendering available topics -->
+  <div class="choice">
+    <span id="topic_aside">Topics</span>
   <form class="topics">
-    <label><input  type="checkbox" name="topic" value="BB">Bangladesh</label>
-    <label><input  type="checkbox" name="topic" value="PP">Programming</label>
+    <label class="topic" ><input  type="checkbox" name="topic" value="BB">Bangladesh</label>
+    <label class="topic" ><input  type="checkbox" name="topic" value="PP">Programming</label>
   </form>
+  </div>
   <!-- End of Rendering available topics -->
       <br><br>
 
   <!-- Rendering Quiz/Questions -->
+  <div>
+    
     <form class="infos">
+      
       {{#each ques}}
       <label>({{@index}}) {{question}} <br><br>
-        <label><input type="radio" name="{{_id}}" value="{{opt1}}">{{opt1}} </label>
-        <label><input type="radio" name="{{_id}}" value="{{opt2}}">{{opt2}} </label>
-        <label><input type="radio" name="{{_id}}" value="{{opt3}}">{{opt3}} </label>
-        <label><input type="radio" name="{{_id}}" value="{{opt4}}">{{opt4}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt1}}" required>{{opt1}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt2}}" required>{{opt2}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt3}}" required>{{opt3}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt4}}" required>{{opt4}} </label>
       </label>
       <br><br>
       {{/each}}
-      <button type="submit">Submit</button>
+      <h3 id="instruct">Select a "Topic" to begin</h3>
+      <button id="submitting_button" type="submit" class="btn btn-success">Submit</button>
     </form>
+  </div>
   <!-- End of Rendering Quiz/Questions -->
 
-
+  <div class="results">
     <h3>{{result}}</h3> <!-- Rendering Result after submitting answers -->
 
     <!-- Rendering corrected answers if wrong answer was given -->
@@ -44,6 +56,7 @@
     {{/each}}
     {{/if}}
     <!-- End of Rendering corrected answers if wrong answer was given -->
+  </div>
 </template>
 
  <!-- Came with example (inside body)-->
