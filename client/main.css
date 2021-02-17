@@ -52,7 +52,7 @@ label{
   background-color: #005786;
 }
 
-.login-link-text{
+/* .login-link-text{
   color:white;
   background-color: rgb(7, 207, 131);
   border:#0afff300 solid 2px;
@@ -61,8 +61,17 @@ label{
   
 }
 
-#login-buttons a, .accounts-dialog a{ /* Got rid of annoying underlined login button */
+#login-buttons a, .accounts-dialog a{ 
   text-decoration: none;
+} */
+
+#log_in_button a{
+  text-decoration: none;
+  color:white;
+  background-color: rgb(7, 207, 131);
+  border:#0afff300 solid 2px;
+  padding:10px 4px;
+  border-radius: 1em;
 }
 
 .choice{

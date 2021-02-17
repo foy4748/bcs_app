@@ -4,7 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { QUESTIONS } from '../lib/qb.js';
 import { Mongo } from 'meteor/mongo';
 import './main.html';
-
+import './nav.html';
 //--------------- Template Helpers ---------------
 
 Template.FORMS.onCreated(function bodyOnCreated() {	

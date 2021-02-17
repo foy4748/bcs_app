@@ -6,6 +6,7 @@
 
 <body>
   <div class="container">
+  {{> navigation_bar}}
   <h1>Welcome to QUIZ app!</h1>
   {{> FORMS}}
   </div>
@@ -21,7 +22,6 @@
     <label class="topic" ><input  type="checkbox" name="topic" value="BB"> Bangladesh</label>
     <label class="topic" ><input  type="checkbox" name="topic" value="PP"> Programming</label>
   </form>
-  <span id="log_in_button">{{> loginButtons align="right"}}</span>
 </div>
 
   <!-- End of Rendering available topics -->
