@@ -1,11 +1,22 @@
 body {
   padding: 10px;
   font-family: sans-serif;
-  background-image: linear-gradient(#008ea7de, rgb(14, 236, 188));
+  background-color: #008ea7de;
 }
 
 h1{
   color:#FFFFFF;
+  background-color: #FFFFFF55;
+  border-radius: 2em;
+  padding: 1em;
+}
+label{
+  font-weight: normal;
+}
+
+.infos label{
+  font-weight: normal;
+  font-size: 17px;
 }
 
 .infos,.results{
@@ -38,5 +49,24 @@ h1{
 #topic_aside{
   color:white;
   font-weight: bold;
-  background-color: #0094e4;
+  background-color: #005786;
+}
+
+.login-link-text{
+  color:white;
+  background-color: rgb(7, 207, 131);
+  border:#0afff300 solid 2px;
+  padding:10px 4px;
+  border-radius: 1em;
+  
+}
+
+#login-buttons a, .accounts-dialog a{ /* Got rid of annoying underlined login button */
+  text-decoration: none;
+}
+
+.choice{
+  background-color: #FFFFFF55;
+  border-radius: 2em;
+  padding: 1em;
 }

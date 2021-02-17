@@ -18,10 +18,12 @@
   <div class="choice">
     <span id="topic_aside">Topics</span>
   <form class="topics">
-    <label class="topic" ><input  type="checkbox" name="topic" value="BB">Bangladesh</label>
-    <label class="topic" ><input  type="checkbox" name="topic" value="PP">Programming</label>
+    <label class="topic" ><input  type="checkbox" name="topic" value="BB"> Bangladesh</label>
+    <label class="topic" ><input  type="checkbox" name="topic" value="PP"> Programming</label>
   </form>
-  </div>
+  <span id="log_in_button">{{> loginButtons align="right"}}</span>
+</div>
+
   <!-- End of Rendering available topics -->
       <br><br>
 
@@ -29,13 +31,12 @@
   <div>
     
     <form class="infos">
-      
       {{#each ques}}
       <label>({{@index}}) {{question}} <br><br>
-        <label><input type="radio" name="{{_id}}" value="{{opt1}}" required>{{opt1}} </label>
-        <label><input type="radio" name="{{_id}}" value="{{opt2}}" required>{{opt2}} </label>
-        <label><input type="radio" name="{{_id}}" value="{{opt3}}" required>{{opt3}} </label>
-        <label><input type="radio" name="{{_id}}" value="{{opt4}}" required>{{opt4}} </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt1}}" required>  {{opt1}}  </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt2}}" required>  {{opt2}}  </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt3}}" required>  {{opt3}}  </label>
+        <label><input type="radio" name="{{_id}}" value="{{opt4}}" required>  {{opt4}}  </label>
       </label>
       <br><br>
       {{/each}}

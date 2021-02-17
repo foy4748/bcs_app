@@ -124,11 +124,12 @@ Template.FORMS.events({	//Listening to Quiz
 		
 		//Putting correct answers in Reactive Dicts
 		instance.state.set('correct_ans', correct_answer);
-
-		if(P)
-		{
-		}
 		
+		//Going to the bottom of the page to see result
+		$("html, body").animate({ 
+			scrollTop: $( 
+			  'html, body').get(0).scrollHeight 
+		}, 1000); 
 	},
 
 	'change .topics'(e, instance)	//Grabbing Topic name
@@ -136,15 +137,15 @@ Template.FORMS.events({	//Listening to Quiz
 		var A = $('.topics').serializeArray()	//Grabbing selected Topic name
 		instance.state.set('topics',A);			//Pushing it to Reactive Dict
 
-		if(A && A.length != 0)
+		if(A && A.length != 0)	//If any topic selected
 		{
-			$('#submitting_button').css('display','block');
-			$('#instruct').css('display','none');
+			$('#submitting_button').css('display','block');	//Submit button will appear
+			$('#instruct').css('display','none');			//Intrction for selecting topic will disappear
 		}
 		else
 		{
-			$('#submitting_button').css('display','none');
-			$('#instruct').css('display','block');
+			$('#submitting_button').css('display','none');	//Submit button will be disappeared.
+			$('#instruct').css('display','block');			//Intrction for selecting topic will appear
 		}
 	},
 
