@@ -3,8 +3,12 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { QUESTIONS } from '../lib/qb.js';
 import { Mongo } from 'meteor/mongo';
+
 import './main.html';
 import './nav.html';
+import './leaderboard.html'
+
+import './router.js';
 //--------------- Template Helpers ---------------
 
 Template.FORMS.onCreated(function bodyOnCreated() {	
@@ -149,6 +153,17 @@ Template.FORMS.events({	//Listening to Quiz
 		}
 	},
 
+});
+
+Template.navigation_bar.events({
+	'click .Nav_item': function(e)
+	{
+		$(".Nav_item").css("background", "#00000000");
+		$(".Nav_item").css("color", "#000000");
+		e.target.style.background = '#219cb2';
+		e.target.style.color = '#FFFFFF';
+
+	}
 });
 
 //============== End of Template Listeners =========

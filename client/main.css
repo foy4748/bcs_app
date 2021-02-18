@@ -42,6 +42,7 @@ label{
   padding:10px 4px;
 }
 
+
 #submitting_button{
   display: none;
 }
@@ -50,6 +51,8 @@ label{
   color:white;
   font-weight: bold;
   background-color: #005786;
+  padding:10px 5px;
+  border-radius: 1em 0em 0em 1em;
 }
 
 /* .login-link-text{
