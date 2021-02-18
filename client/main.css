@@ -55,19 +55,6 @@ label{
   border-radius: 1em 0em 0em 1em;
 }
 
-/* .login-link-text{
-  color:white;
-  background-color: rgb(7, 207, 131);
-  border:#0afff300 solid 2px;
-  padding:10px 4px;
-  border-radius: 1em;
-  
-}
-
-#login-buttons a, .accounts-dialog a{ 
-  text-decoration: none;
-} */
-
 #log_in_button a{
   text-decoration: none;
   color:white;
@@ -81,4 +68,9 @@ label{
   background-color: #FFFFFF55;
   border-radius: 2em;
   padding: 1em;
+}
+
+#leaderboard, #profile{
+  background-color: #fffffffe;
+  border-radius: 1em 1em 0em 0em;
 }

@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { QUESTIONS } from '../lib/qb.js';
+import { SCORES } from '../lib/qb.js';
+import { ALLSCORES } from '../lib/qb.js';
 import { qs } from './qs.js';
 
 Meteor.startup(() => {

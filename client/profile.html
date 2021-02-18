@@ -1,0 +1,25 @@
+<template name="profile">
+<h1>{{USER_NAME}}</h1>
+<section class="brief">
+    <p>Total attempts:{{attempts}} Total Score: {{grand_sum}}</p>
+</section>
+<table id="profile" class="table table-hover">
+    <thead>
+        <tr>
+        <th>Right</th>
+        <th>Wrong</th>
+        <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {{#each user_scores}}
+        <tr>
+            <td>{{Right}}</td>
+            <td>{{Wrong}}</td>
+            <td>{{Total_Score}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+</template>

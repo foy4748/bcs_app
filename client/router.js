@@ -21,6 +21,12 @@ Router.configure({
       
   });
 
+  ///////Leaderboard////////////
+  Router.route('/Profile', function () {
+    this.render('navigation_bar',   {to: "navbar"} );	
+    this.render('profile'	, {to: "main"});
+      
+  });
    /*
   ///////Tutorials////////////////
   Router.route('/Tutorials', function () {

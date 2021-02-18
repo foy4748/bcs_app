@@ -1,14 +1,20 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveDict } from 'meteor/reactive-dict';
-import { QUESTIONS } from '../lib/qb.js';
 import { Mongo } from 'meteor/mongo';
+import { Accounts } from 'meteor/accounts-base';
+
+import { QUESTIONS } from '../lib/qb.js';
+import { SCORES } from '../lib/qb.js';
+import { ALLSCORES } from '../lib/qb.js';
 
 import './main.html';
 import './nav.html';
 import './leaderboard.html'
+import './profile.html'
 
 import './router.js';
+import './account.js';
 //--------------- Template Helpers ---------------
 
 Template.FORMS.onCreated(function bodyOnCreated() {	
@@ -79,9 +85,57 @@ Template.FORMS.helpers({
 			return B;
 		}
 	},
+	
+	'USER_NAME'()
+	{
+		if(Meteor.userId())
+		{
+			var B = Meteor.userId();
+			var A = Meteor.user({_id:B}).profile.first_name;
+			return A;
+		}
+		else
+		{
+			return "";
+		}
+	},
 
+});
 
+Template.profile.helpers({
 
+	'USER_NAME'()
+	{
+		if(Meteor.userId())
+		{
+			var A = Meteor.userId();
+			var B = Meteor.user({_id:A}).profile.first_name;
+			var C = Meteor.user({_id:A}).profile.last_name;
+			return B + ' ' + C;
+		}
+		else
+		{
+			return "";
+		}
+	},
+
+	'user_scores'()
+	{
+		var A = Meteor.userId();
+		return SCORES.find({user_ID:A}, {sort:{createdAt: -1}});
+	},
+
+	'attempts'()
+	{
+		var A = Meteor.userId();
+		return SCORES.find({user_ID:A}).count();
+	},
+
+	// 'grand_sum'()
+	// {
+	// 	var A = Meteor.userId();
+	// 	return ALLSCORES.findOne({user_ID:A}).grand_sum;
+	// },
 
 });
 //=================================================
@@ -100,40 +154,68 @@ Template.FORMS.events({	//Listening to Quiz
 		var wrong = 0;
 
 		correct_answer = []
-		//Iterating through submitted answers
-		for(var i = 0; i<P.length; i++)
+		if(Meteor.userId())		//If user is logged in
 		{
+			//Iterating through submitted answers
+			for(var i = 0; i<P.length; i++)
+			{
+				
+				var Q = QUESTIONS.findOne({_id:P[i].name});	//Grabbing Question set from db
+
+				//Comparing Submitted answers with db Question set
+				if(P[i].value == Q.ans)	
+				{
+					right = right + 1;	//Counting Right answers
+				}
+				else
+				{
+					//Correct answers to corresponding right answers
+					//along with indexing
+					correct_answer.push(" (" + i + ") " + Q.ans);
+
+					wrong = wrong + 1;	//Counting Wrong answers
+				}
+
+				//Putting counts in Reactive Dicts
+				instance.state.set('rights', right);
+				instance.state.set('wrongs', wrong);
+
+			}
 			
-			var Q = QUESTIONS.findOne({_id:P[i].name});	//Grabbing Question set from db
+			//Putting correct answers in Reactive Dicts
+			instance.state.set('correct_ans', correct_answer);
+			
+			
 
-			//Comparing Submitted answers with db Question set
-			if(P[i].value == Q.ans)	
-			{
-				right = right + 1;	//Counting Right answers
-			}
-			else
-			{
-				//Correct answers to corresponding right answers
-				//along with indexing
-				correct_answer.push(" (" + i + ") " + Q.ans);
+			//Calculating total score per submission
+			var total_score = right*10 + (-5)*wrong;
+			
+			
+				//Making Score info Object
+				var score_info = {
+					"user_ID": Meteor.userId(),
+					"Right": right,
+					"Wrong": wrong,
+					"Total_Score": total_score,
+					"createdAt": new Date(),
+				}
 
-				wrong = wrong + 1;	//Counting Wrong answers
-			}
+				//Storing the Score info object into db
+				SCORES.insert(score_info);
 
-			//Putting counts in Reactive Dicts
-			instance.state.set('rights', right);
-			instance.state.set('wrongs', wrong);
-
+				//Going to the bottom of the page to see result
+				$("html, body").animate({ 
+					scrollTop: $( 
+					'html, body').get(0).scrollHeight 
+				}, 1000);
+				
 		}
-		
-		//Putting correct answers in Reactive Dicts
-		instance.state.set('correct_ans', correct_answer);
-		
-		//Going to the bottom of the page to see result
-		$("html, body").animate({ 
-			scrollTop: $( 
-			  'html, body').get(0).scrollHeight 
-		}, 1000); 
+
+		else
+		{
+			alert('Please, log in');	//Alert if user is not logged in
+		}
+
 	},
 
 	'change .topics'(e, instance)	//Grabbing Topic name
@@ -151,17 +233,19 @@ Template.FORMS.events({	//Listening to Quiz
 			$('#submitting_button').css('display','none');	//Submit button will be disappeared.
 			$('#instruct').css('display','block');			//Intrction for selecting topic will appear
 		}
+
 	},
 
 });
 
-Template.navigation_bar.events({
-	'click .Nav_item': function(e)
+Template.navigation_bar.events({	//Listening to Navbar
+
+	'click .Nav_item': function(e)	//Navigation indicator
 	{
-		$(".Nav_item").css("background", "#00000000");
-		$(".Nav_item").css("color", "#000000");
-		e.target.style.background = '#219cb2';
-		e.target.style.color = '#FFFFFF';
+		$(".Nav_item").css("background", "#00000000");	//Clear Indication
+		$(".Nav_item").css("color", "#777");			//Clear Indication
+		e.target.style.background = '#219cb2';			//Indicate clicked nav
+		e.target.style.color = '#FFFFFF';				//Indicate clicked nav
 
 	}
 });
