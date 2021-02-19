@@ -4,6 +4,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
 
+
 import { QUESTIONS } from '../lib/qb.js';
 import { SCORES } from '../lib/qb.js';
 import { ALLSCORES } from '../lib/qb.js';
@@ -22,6 +23,8 @@ Template.FORMS.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();	//Create State when Topic template is created
 });
 
+//Starting Index from 1
+Template.registerHelper('count1', function(count) { return count + 1; });
 
 Template.FORMS.helpers({
 	'ques'()	//Rendering Questions from database
@@ -121,29 +124,41 @@ Template.profile.helpers({
 
 	'user_scores'()
 	{
-		var A = Meteor.userId();
-		return SCORES.find({user_ID:A}, {sort:{createdAt: -1}});
+		if(Meteor.userId())
+		{
+			var A = Meteor.userId();
+			return SCORES.find({user_ID:A}, {sort:{createdAt: -1}});
+		}
 	},
 
 	'attempts'()
 	{
-		var A = Meteor.userId();
-		return SCORES.find({user_ID:A}).count();
+		if(Meteor.userId())
+		{
+			var A = Meteor.userId();
+			return SCORES.find({user_ID:A}).count();
+		}
 	},
 
 	'grand_sum'()
 	{
-		var A = Meteor.userId();
-		return ALLSCORES.findOne({user_ID:A}).grand_sum;
+		if(Meteor.userId())
+		{
+			var A = Meteor.userId();
+			return ALLSCORES.findOne({user_ID:A}).grand_sum;
+		}
 	},
 
 	'avg'()
 	{
-		var A = Meteor.userId();
-		var count = SCORES.find({user_ID:A}).count();
-		var grand_sum = ALLSCORES.findOne({user_ID:A}).grand_sum;
+		if(Meteor.userId())
+		{
+			var A = Meteor.userId();
+			var count = SCORES.find({user_ID:A}).count();
+			var grand_sum = ALLSCORES.findOne({user_ID:A}).grand_sum;
 
-		return grand_sum/count;
+			return grand_sum/count;
+		}
 	}
 
 });
@@ -154,21 +169,26 @@ Template.profile.helpers({
 	
 	'lead'()
 	{
-		var A = ALLSCORES.find({},{sort:{grand_sum:-1}});
-		array = A.fetch();
-		collect_array = [];
-		for(var i=0; i<array.length; i++)
+		var P = ALLSCORES.find({}).count();
+
+		if(P != 0)
 		{
-			var P = array[i].user_ID;
-			var Name_ = Meteor.users.findOne({_id:P});
-			var Z = Name_.profile.first_name + " " + Name_.profile.last_name;
-			var Q = array[i].grand_sum;
-			var obj = {"Name":Z, "Score":Q};
+			var A = ALLSCORES.find({},{sort:{grand_sum:-1}});
+			array = A.fetch();
+			collect_array = [];
+			for(var i=0; i<array.length; i++)
+			{
+				var P = array[i].user_ID;
+				var Name_ = Meteor.users.findOne({_id:P});
+				var Z = Name_.profile.first_name + " " + Name_.profile.last_name;
+				var Q = array[i].grand_sum;
+				var obj = {"Name":Z, "Score":Q};
+				
+				collect_array.push(obj);
+			}
 			
-			collect_array.push(obj);
+			return collect_array;
 		}
-		
-		return collect_array;
 	},
 });
 
@@ -204,8 +224,9 @@ Template.FORMS.events({	//Listening to Quiz
 				else
 				{
 					//Correct answers to corresponding right answers
-					//along with indexing
-					correct_answer.push(" (" + i + ") " + Q.ans);
+					//along with index starting from 1
+					var p = i + 1;
+					correct_answer.push(" (" + p + ") " + Q.ans);
 
 					wrong = wrong + 1;	//Counting Wrong answers
 				}
@@ -264,6 +285,11 @@ Template.FORMS.events({	//Listening to Quiz
 		else
 		{
 			alert('Please, log in');	//Alert if user is not logged in
+
+			//Scroll to the top navigating to the Sign In button
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+			
+			//window.scrollTo(0, 0);	//(xCordinate, yCordinate)
 		}
 
 	},

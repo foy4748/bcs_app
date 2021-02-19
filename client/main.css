@@ -68,9 +68,28 @@ label{
   background-color: #FFFFFF55;
   border-radius: 2em;
   padding: 1em;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 #leaderboard, #profile{
   background-color: #fffffffe;
   border-radius: 1em 1em 0em 0em;
+}
+
+#profile th,#profile td
+{
+  text-align:center;
+}
+
+.status
+{
+  color:#FFFFFFEE;
+  background-color: #005786;
+  text-align: center;
+  padding:1px 2px;
+  border: solid #00000000 0px;
+  border-radius: 10px;
+  margin:5px 0px 7px 0px;
+
 }
