@@ -9,11 +9,12 @@
         </tr>
     </thead>
     <tbody>
+        {{#each lead}}
         <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
+            <td>{{Name}}</td>
+            <td>{{Score}}</td>
         </tr>
+        {{/each}}
     </tbody>
 </table>
 </template>

@@ -147,6 +147,31 @@ Template.profile.helpers({
 	}
 
 });
+
+
+
+ Template.leaderboard.helpers({
+	
+	'lead'()
+	{
+		var A = ALLSCORES.find({},{sort:{grand_sum:-1}});
+		array = A.fetch();
+		collect_array = [];
+		for(var i=0; i<array.length; i++)
+		{
+			var P = array[i].user_ID;
+			var Name_ = Meteor.users.findOne({_id:P});
+			var Z = Name_.profile.first_name + " " + Name_.profile.last_name;
+			var Q = array[i].grand_sum;
+			var obj = {"Name":Z, "Score":Q};
+			
+			collect_array.push(obj);
+		}
+		
+		return collect_array;
+	},
+});
+
 //=================================================
 
 //--------------- Template Listeners -------------
