@@ -86,7 +86,7 @@ Template.FORMS.helpers({
 		}
 	},
 	
-	'USER_NAME'()
+	'USER_NAME'()	//Rendering USER NAME at Home page
 	{
 		if(Meteor.userId())
 		{
@@ -104,7 +104,7 @@ Template.FORMS.helpers({
 
 Template.profile.helpers({
 
-	'USER_NAME'()
+	'USER_NAME'()	//Rendering USER NAME at Profile page
 	{
 		if(Meteor.userId())
 		{
@@ -131,11 +131,20 @@ Template.profile.helpers({
 		return SCORES.find({user_ID:A}).count();
 	},
 
-	// 'grand_sum'()
-	// {
-	// 	var A = Meteor.userId();
-	// 	return ALLSCORES.findOne({user_ID:A}).grand_sum;
-	// },
+	'grand_sum'()
+	{
+		var A = Meteor.userId();
+		return ALLSCORES.findOne({user_ID:A}).grand_sum;
+	},
+
+	'avg'()
+	{
+		var A = Meteor.userId();
+		var count = SCORES.find({user_ID:A}).count();
+		var grand_sum = ALLSCORES.findOne({user_ID:A}).grand_sum;
+
+		return grand_sum/count;
+	}
 
 });
 //=================================================
@@ -208,6 +217,22 @@ Template.FORMS.events({	//Listening to Quiz
 					scrollTop: $( 
 					'html, body').get(0).scrollHeight 
 				}, 1000);
+
+				if(!ALLSCORES.findOne({"user_ID":Meteor.userId()}))
+				{
+					var leaderboard_score = {
+						"user_ID": Meteor.userId(),
+						"grand_sum": total_score,
+					}
+
+					ALLSCORES.insert(leaderboard_score);
+				}
+
+				else
+				{
+					var A = Meteor.userId();
+					Meteor.call('leader_board', A, total_score);
+				}
 				
 		}
 

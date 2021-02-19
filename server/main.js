@@ -19,3 +19,16 @@ Meteor.startup(() => {
 	
 
 });
+
+Meteor.methods({
+	'leader_board'(userID, updated_score)	//Updating user's Grand sum of total scores
+	{
+		var P = ALLSCORES.findOne({user_ID:userID});
+
+		//Grabbing previous Grand Sum of score and adding
+		//newest score to it
+		var Q = parseInt(P.grand_sum) + updated_score;	
+
+		ALLSCORES.update({"user_ID":userID}, {$set:{grand_sum:Q}});
+	}
+});
