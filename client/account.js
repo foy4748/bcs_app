@@ -1,6 +1,6 @@
 
 import { Accounts } from 'meteor/accounts-base';
-import { Tracker } from 'meteor/tracker'
+import { Tracker } from 'meteor/tracker';
 /*
 // Username Only [Works]
 Accounts.ui.config({
@@ -56,56 +56,45 @@ Accounts.ui.config({
         data: [{                    // Array of radio options, all properties are required
     		id: 1,                  // id suffix of the radio element
             label: 'Male',          // label for the radio element
-            value: 'm'              // value of the radio element, this will be saved.
+            value: 'm',              // value of the radio element, this will be saved.
+            checked: 'checked'
           }, {
             id: 2,
             label: 'Female',
             value: 'f',
-            checked: 'checked'
+            
         }],
         visible: true
-    }, {
-        fieldName: 'country',
-        fieldLabel: 'Country',
-        inputType: 'select',
-        showFieldLabel: true,
-        empty: 'Select Country',
-        data: [
-        {
-            id: 1,
-            label: 'United States',
-            value: 'us'
-         }, 
-
-        {
-            id: 2,
-            label: 'Spain',
-            value: 'es',
-        },
-
-        {
-        	id: 3,
-        	label: 'Bangladesh',
-        	value: 'bn',
-        }
-        	],
-        visible: true
-    }, {
-        fieldName: 'terms',
-        fieldLabel: 'I accept the terms and conditions',
-        inputType: 'checkbox',
-        visible: true,
-        saveToProfile: false,
-        validate: function(value, errorFunction) {
-            if (value) {
-                return true;
-            } else {
-                errorFunction('You must accept the terms and conditions.');
-                return false;
-            }
-        }
-    }] 
+    }, ] 
 });
 //-----------------------
 
 /**/
+/*
+{
+  fieldName: 'country',
+  fieldLabel: 'Country',
+  inputType: 'select',
+  showFieldLabel: true,
+  empty: 'Select Country',
+  data: [
+  {
+      id: 1,
+      label: 'United States',
+      value: 'us'
+   }, 
+
+  {
+      id: 2,
+      label: 'Spain',
+      value: 'es',
+  },
+
+  {
+    id: 3,
+    label: 'Bangladesh',
+    value: 'bn',
+  }
+    ],
+  visible: true
+}, */
