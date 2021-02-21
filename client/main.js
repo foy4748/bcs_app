@@ -3,7 +3,7 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
-
+import { Tracker } from 'meteor/tracker';
 
 import { QUESTIONS } from '../lib/qb.js';
 import { SCORES } from '../lib/qb.js';
